@@ -8,4 +8,5 @@ public class ProductRepo : BaseRepo<Product, string>, IProductRepo
     public ProductRepo(IMongoContext context) : base(context)
     {
     }
+   
 }

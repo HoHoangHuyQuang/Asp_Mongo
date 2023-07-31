@@ -29,7 +29,7 @@ public abstract class BaseRepo<T, ID> : IBaseRepo<T, ID> where T : class
     public virtual async Task<T> FindById(ID entityId)
     {
         var filter = Builders<T>.Filter.Eq("Id", entityId);
-        return await MongoCollection.Find(filter).SingleOrDefaultAsync();
+        return await MongoCollection.Find(filter).FirstOrDefaultAsync();
     }
 
     public virtual async Task Save(T entity)

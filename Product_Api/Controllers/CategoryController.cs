@@ -14,14 +14,25 @@ public class CategoryController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Category>>> getAllCategorys()
+    public async Task<ActionResult<List<Category>>> getAllCategorys(int pageNum)
     {
-        List<Category> all = await _categoryService.GetAllCategorys();
-        if (all == null)
+        if (pageNum == null || pageNum < 1)
         {
-            return NoContent();
+            pageNum = 1;
         }
-        return Ok(all);
+        try
+        {
+            List<Category> data = await _categoryService.GetAllCategorys(pageNum);
+            if (data == null)
+            {
+                return NoContent();
+            }
+            return Ok(data);
+        }
+        catch (System.Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
     [HttpPost]
     public async Task<ActionResult> CreateCategory(Category c)

@@ -15,24 +15,44 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Product>>> getAllProducts()
+    public async Task<ActionResult<List<Product>>> getAllProducts(int pageNum)
     {
-        List<Product> all = await _productService.GetAllProducts();
-        if (all == null)
+        if (pageNum == null || pageNum < 1)
         {
-            return NoContent();
+            pageNum = 1;
         }
-        return Ok(all);
+        try
+        {
+            List<Product> all = await _productService.GetAllProducts(pageNum);
+            if (all == null)
+            {
+                return NoContent();
+            }
+            return Ok(all);
+        }
+        catch (System.Exception e)
+        {
+            return BadRequest(e.Message);
+
+        }
     }
     [HttpGet("{id}")]
     public async Task<ActionResult<Product>> getProductById(string id)
     {
-        Product p = await _productService.GetProductById(id);
-        if (p == null)
+        try
         {
-            return NotFound();
+            Product p = await _productService.GetProductById(id);
+            if (p == null)
+            {
+                return NotFound();
+            }
+            return Ok(p);
         }
-        return Ok(p);
+        catch (System.Exception e)
+        {
+            return BadRequest(e.Message);
+
+        }
     }
     [HttpPost]
     public async Task<ActionResult> CreateProduct(Product p)

@@ -24,11 +24,12 @@ public class ProductService
         }
 
     }
-    public async Task<List<Product>> GetAllProducts()
+    public async Task<List<Product>> GetAllProducts(int pageNum)
     {
         try
         {
-            return await _productRepo.FindAll();
+            var all = await _productRepo.FindAll();
+            return all.Skip((pageNum - 1) * 20).Take(20).ToList();
         }
         catch (System.Exception)
         {

@@ -25,11 +25,12 @@ public class CategoryService
         }
 
     }
-    public async Task<List<Category>> GetAllCategorys()
+    public async Task<List<Category>> GetAllCategorys(int pageNum)
     {
         try
         {
-            return await _categoryRepo.FindAll();
+            var all=  await _categoryRepo.FindAll();
+            return all.OrderBy(on => on.Name).Skip((pageNum - 1) * 20).Take(20).ToList();
         }
         catch (System.Exception)
         {

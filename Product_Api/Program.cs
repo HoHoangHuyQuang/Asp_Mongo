@@ -14,9 +14,13 @@ builder.Services.AddSingleton<IProductDatabaseSettings>(p=> p.GetRequiredService
 builder.Services.AddScoped<IMongoContext, MongoContext>();
 
 builder.Services.AddScoped<IProductRepo, ProductRepo>();
+builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
 
 builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<CategoryService>();
 
+
+// End add services to the container
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
