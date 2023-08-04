@@ -1,12 +1,38 @@
 {
-
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5003"
+    "BaseUrl": "https://localhost:7021",
+    "RequestIdKey": "OcRequestId",
+    "RateLimitOptions": {
+      "DisableRateLimitHeaders": false,
+      "QuotaExceededMessage": "Too Many Requests. Please try again later!",
+      "HttpStatusCode": 429
+    }
   },
   "Routes": [
     {
-      "UpstreamPathTemplate": "/products",
+      "UpstreamPathTemplate": "/",
       "UpstreamHttpMethod": ["Get"],
+      "DownstreamPathTemplate": "/api/weather",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "LoadBalancer": "RoundRobin", 
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "10s",
+        "PeriodTimespan": 30,
+        "Limit": 2
+      }
+      
+    },
+    {
+      "UpstreamPathTemplate": "/products",
+      "UpstreamHttpMethod": ["Get", "Post"],
       "DownstreamPathTemplate": "/api/product",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -14,11 +40,19 @@
           "Host": "localhost",
           "Port": 5001
         }
-      ]
+      ],
+      "LoadBalancer": "LeastConnection", 
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "10s",
+        "PeriodTimespan": 30,
+        "Limit": 2
+      }
     },
     {
       "UpstreamPathTemplate": "/product/{Id}",
-      "UpstreamHttpMethod": ["Get"],
+      "UpstreamHttpMethod": ["Get", "Put", "Delete"],
       "DownstreamPathTemplate": "/api/product/{Id}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -26,7 +60,15 @@
           "Host": "localhost",
           "Port": 5001
         }
-      ]
+      ],
+      "LoadBalancer": "LeastConnection", 
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "10s",
+        "PeriodTimespan": 30,
+        "Limit": 2
+      }
     }
   ]
 }

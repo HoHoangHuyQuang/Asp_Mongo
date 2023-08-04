@@ -1,6 +1,7 @@
 {
   "version": "0.2.0",
   "configurations": [
+    
     {
       // Use IntelliSense to find out which attributes exist for C# debugging
       // Use hover for the description of the existing attributes
@@ -8,18 +9,18 @@
       "name": "Product API Project",
       "type": "coreclr",
       "request": "launch",
-      "preLaunchTask": "build API",
+      "preLaunchTask": "build product API",
       // If you have changed target frameworks, make sure to update the program path.
       "program": "${workspaceFolder}/Product_Api/bin/Debug/net7.0/Product_Api.dll",
       "args": [],
       "cwd": "${workspaceFolder}/Product_Api",
       "stopAtEntry": false,
       // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
-      "serverReadyAction": {
-        "action": "openExternally",
-        "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+      // "serverReadyAction": {
+      //   "action": "openExternally",
+      //   "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
        
-      },
+      // },
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -38,24 +39,41 @@
       "cwd": "${workspaceFolder}/Api_Gateway",
       "stopAtEntry": false,
       // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
-      "serverReadyAction": {
-        "action": "openExternally",
-        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-      },
+      // "serverReadyAction": {
+      //   "action": "openExternally",
+      //   "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      // },
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     {
-      "name": ".NET Core Attach",
+      // Use IntelliSense to find out which attributes exist for C# debugging
+      // Use hover for the description of the existing attributes
+      // For further information visit https://github.com/dotnet/vscode-csharp/blob/main/debugger-launchjson.md
+      "name": "Weather API Project",
       "type": "coreclr",
-      "request": "attach"
-    }
+      "request": "launch",
+      "preLaunchTask": "build weather API",
+      // If you have changed target frameworks, make sure to update the program path.
+      "program": "${workspaceFolder}/WeatherApi/bin/Debug/net7.0/WeatherApi.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/WeatherApi",
+      "stopAtEntry": false,
+      // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
+      // "serverReadyAction": {
+      //   "action": "openExternally",
+      //   "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      // },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },    
   ],
   "compounds": [
     {
       "name": "Multiple ASP.NET Core Projects",
-      "configurations": ["Product API Project", "API Gateway Project"]
+      "configurations": ["Product API Project", "API Gateway Project", "Weather API Project"]
     }
   ]
 }
