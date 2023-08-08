@@ -1,7 +1,7 @@
 {
   "GlobalConfiguration": {
     "BaseUrl": "https://localhost:7021",
-    "RequestIdKey": "OcRequestId",
+    "RequestIdKey": "Ocelot-Request-Id",
     "RateLimitOptions": {
       "DisableRateLimitHeaders": false,
       "QuotaExceededMessage": "Too Many Requests. Please try again later!",
@@ -13,14 +13,14 @@
       "UpstreamPathTemplate": "/",
       "UpstreamHttpMethod": ["Get"],
       "DownstreamPathTemplate": "/api/weather",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "http",     
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
           "Port": 5002
         }
       ],
-      "LoadBalancer": "RoundRobin", 
+      "LoadBalancer": "RoundRobin",
       "RateLimitOptions": {
         "ClientWhitelist": [],
         "EnableRateLimiting": true,
@@ -28,31 +28,10 @@
         "PeriodTimespan": 30,
         "Limit": 2
       }
-      
-    },
+    },    
     {
-      "UpstreamPathTemplate": "/products",
-      "UpstreamHttpMethod": ["Get", "Post"],
-      "DownstreamPathTemplate": "/api/product",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5001
-        }
-      ],
-      "LoadBalancer": "LeastConnection", 
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": true,
-        "Period": "10s",
-        "PeriodTimespan": 30,
-        "Limit": 2
-      }
-    },
-    {
-      "UpstreamPathTemplate": "/product/{Id}",
-      "UpstreamHttpMethod": ["Get", "Put", "Delete"],
+      "UpstreamPathTemplate": "/products/{Id}",
+      "UpstreamHttpMethod": ["Get", "Put", "Delete", "Post"],
       "DownstreamPathTemplate": "/api/product/{Id}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -61,7 +40,7 @@
           "Port": 5001
         }
       ],
-      "LoadBalancer": "LeastConnection", 
+      "LoadBalancer": "LeastConnection",
       "RateLimitOptions": {
         "ClientWhitelist": [],
         "EnableRateLimiting": true,
